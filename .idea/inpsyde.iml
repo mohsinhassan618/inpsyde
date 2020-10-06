@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="WEB_MODULE" version="4">
+  <component name="NewModuleRootManager">
+    <content url="file://$MODULE_DIR$">
+      <sourceFolder url="file://$MODULE_DIR$/wp-content/plugins/inpsyde-task-plugin/vue-app/node_modules" isTestSource="false" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/automattic/phpcs-neutron-standard" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/composer" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/dealerdirect/phpcodesniffer-composer-installer" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/inpsyde/php-coding-standards" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/johnpbloch/wordpress" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/johnpbloch/wordpress-core-installer" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/phpcompatibility/php-compatibility" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/squizlabs/php_codesniffer" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/wp-coding-standards/wpcs" />
+    </content>
+    <orderEntry type="inheritedJdk" />
+    <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="module-library">
+      <library name="PHP" type="php">
+        <CLASSES>
+          <root url="file://$MODULE_DIR$/vendor/automattic/phpcs-neutron-standard" />
+          <root url="file://$MODULE_DIR$/vendor/composer" />
+          <root url="file://$MODULE_DIR$/vendor/dealerdirect/phpcodesniffer-composer-installer" />
+          <root url="file://$MODULE_DIR$/vendor/inpsyde/php-coding-standards" />
+          <root url="file://$MODULE_DIR$/vendor/johnpbloch/wordpress" />
+          <root url="file://$MODULE_DIR$/vendor/johnpbloch/wordpress-core-installer" />
+          <root url="file://$MODULE_DIR$/vendor/phpcompatibility/php-compatibility" />
+          <root url="file://$MODULE_DIR$/vendor/squizlabs/php_codesniffer" />
+          <root url="file://$MODULE_DIR$/vendor/wp-coding-standards/wpcs" />
+        </CLASSES>
+        <SOURCES>
+          <root url="file://$MODULE_DIR$/vendor/automattic/phpcs-neutron-standard" />
+          <root url="file://$MODULE_DIR$/vendor/composer" />
+          <root url="file://$MODULE_DIR$/vendor/dealerdirect/phpcodesniffer-composer-installer" />
+          <root url="file://$MODULE_DIR$/vendor/inpsyde/php-coding-standards" />
+          <root url="file://$MODULE_DIR$/vendor/johnpbloch/wordpress" />
+          <root url="file://$MODULE_DIR$/vendor/johnpbloch/wordpress-core-installer" />
+          <root url="file://$MODULE_DIR$/vendor/phpcompatibility/php-compatibility" />
+          <root url="file://$MODULE_DIR$/vendor/squizlabs/php_codesniffer" />
+          <root url="file://$MODULE_DIR$/vendor/wp-coding-standards/wpcs" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+  </component>
+</module>

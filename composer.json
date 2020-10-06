@@ -9,7 +9,6 @@
     "require": {
         "php": ">=5.6.30",
         "johnpbloch/wordpress": "5.3.*",
-        "wpackagist-plugin/advanced-custom-fields":"5.8.14",
         "wpackagist-plugin/akismet":"4.1.6",
         "wpackagist-theme/twentytwenty":"1.5",
         "wpackagist-theme/twentynineteen":"1.7",

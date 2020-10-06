@@ -16,10 +16,15 @@ wp-content/themes/twenty*/
 
 # ignore node dependency directories
 node_modules/
+
 # ignore composer dependency directories
 vendor/
+
 # ignore PHP Storm Files
 .idea/
+
+# ignore PHP Storm Files
+.vscode/
 
 # ignore log files and databases
 *.log

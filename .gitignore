@@ -13,6 +13,9 @@ wordpress/
 
 # ignore these plugins
 wp-content/plugins/hello.php
+wp-content/plugins/akismet/*
+wp-content/plugins/fakerpress/*
+
 
 # ignore specific themes
 wp-content/themes/twenty*/

@@ -60,9 +60,10 @@
         },
         methods: {
             get_users: function () {
+                var self = this;
                 jQuery.get(wp_rest_api.inpsyde_user_api + 'users')
                     .fail(function () {
-                        this.$emit('setError');
+                        self.$emit('setError');
                     }).always((response) => {
                     if (response.success) {
                         this.users = response.data;

@@ -4,7 +4,6 @@ import Body from './body.vue';
 import Detail from './detail.vue';
 import Error from './error-msg.vue';
 import App from './App.vue';
-import Test from './test.vue';
 import VueRouter from 'vue-router';
 
 Vue.prototype.$users =[];

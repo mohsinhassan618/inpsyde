@@ -125,9 +125,10 @@
 
                 },
             get_user: function () {
+                var self = this;
                 jQuery.get(wp_rest_api.inpsyde_user_api + 'users')
                     .fail(function () {
-                        this.$emit('setError');
+                        self.$emit('setError');
                     }).always((response) => {
                     if (response.success) {
                         this.users = response.data;
@@ -144,10 +145,11 @@
                 return false;
             },
             get_current_user: function () {
+                var self = this;
                 if (this.users[this.query_id] != undefined) {
                     this.user = this.users[this.query_id];
                 }else{
-                    this.$emit('setError');
+                    self.$emit('setError');
                 }
             },
             find_next: function () {

@@ -17,7 +17,7 @@ class InpsydeTaskPlugin
     private $apiUrl = 'https://jsonplaceholder.typicode.com/users';
     private $isInpsydeEndpoint = false;
     private $removeDefaultThemeStyle = true;
-    private $cacheApiResponse = false;
+    private $cacheApiResponse = true;
 
     /**
      * Constructor
@@ -30,7 +30,7 @@ class InpsydeTaskPlugin
      * Gets an instance of our plugin.
      * @return object
      */
-    public static function instance()
+    public static function instance():object
     {
         if (null === self::$pluginInstance) {
             self::$pluginInstance = new self();
@@ -60,14 +60,14 @@ class InpsydeTaskPlugin
         });
     }
 
-    public function inpsydeAddQueryVare($vars)
+    public function inpsydeAddQueryVare(array $vars):array
     {
         $vars[] = 'inpsyde';
         $vars[] = 'inpsyde_user';
         return $vars;
     }
 
-    public function inpsydeLoadTemplate($template)
+    public function inpsydeLoadTemplate(string $template):string
     {
         $this->isInpsydeEndpoint = get_query_var('inpsyde');
         if ($this->isInpsydeEndpoint) {
@@ -81,7 +81,9 @@ class InpsydeTaskPlugin
 
     public function removeTwentyTwentyStyles()
     {
-        if (($this->removeDefaultThemeStyle == true) && (wp_get_theme()->get_template() == 'twentytwenty')) {
+        if (($this->removeDefaultThemeStyle === true) &&
+            ((string) wp_get_theme()->get_template() === 'twentytwenty')
+        ) {
             remove_action('wp_enqueue_scripts', 'twentytwenty_register_scripts');
             remove_action('wp_enqueue_scripts', 'twentytwenty_register_styles');
         }
@@ -122,30 +124,32 @@ class InpsydeTaskPlugin
 
     public function inpsydeRestRouteCallbackUsers($data = null)
     {
-        $single_id = isset($data['id']) ? $data['id'] : null;
-        $response_code = 0;
+        $singleId = isset($data['id']) ? (int) $data['id'] : null;
+        $responseCode = 0;
 
         $this->cacheApiResponse = apply_filters('inpsyde_cache_api_response', $this->cacheApiResponse);
         if ($this->cacheApiResponse) {
-            $this->getCachedData($single_id);
+            $this->getCachedData($singleId);
         }
 
         try {
-            $users_data = false;
+            $usersData = false;
             $response = wp_remote_get($this->apiUrl, ['timeout' => 20]);
-            $response_code = wp_remote_retrieve_response_code($response);
-            if (!is_wp_error($response) && $response_code == 200) {
+            $responseCode = wp_remote_retrieve_response_code($response);
+            if (!is_wp_error($response) && ((int) $responseCode === 200)) {
                 $body = wp_remote_retrieve_body($response);
-                $users_data = json_decode($body);
+                $usersData = json_decode($body);
                 if ($this->cacheApiResponse) {
-                    set_transient('typicode_api_response', $users_data, 12 * HOUR_IN_SECONDS);
+                    set_transient('typicode_api_response', $usersData, 12 * HOUR_IN_SECONDS);
                 }
 
-                if ($single_id) {
-                    $single_result = $this->sortSingleUser($users_data, $single_id);
-                    ($single_result != false) ? wp_send_json_success($single_result) : wp_send_json_error(['message' => 'User does not exist']);
+                if ($singleId) {
+                    $singleResult = $this->sortSingleUser($usersData, (int) $singleId);
+                    ($singleResult !== false) ?
+                        wp_send_json_success($singleResult) :
+                        wp_send_json_error(['message' => 'User does not exist']);
                 } else {
-                    wp_send_json_success($users_data, 200);
+                    wp_send_json_success($usersData, 200);
                 }
             }
         } catch (\Exception $exObj) {
@@ -153,33 +157,33 @@ class InpsydeTaskPlugin
         }
 
         wp_send_json_error(
-            ['message' => 'Unable to connect to the API server.', 'status_code' => $response_code]
+            ['message' => 'Unable to connect to the API server.', 'status_code' => $responseCode]
         );
     }
 
-    public function getCachedData($id = null)
+    public function getCachedData(int $id = null)
     {
-        $single_id = $id;
-        $cached_data = get_transient('typicode_api_response');
+        $singleId = $id;
+        $cachedData = get_transient('typicode_api_response');
 
-        if (($cached_data != false) && is_array($cached_data)) {
-            if ($single_id) {
-                $single_result = $this->sortSingleUser($cached_data, $single_id);
-                if ($single_result != false) {
-                    wp_send_json_success($single_result);
+        if (($cachedData !== false) && is_array($cachedData)) {
+            if ($singleId) {
+                $singleResult = $this->sortSingleUser($cachedData, $singleId);
+                if ($singleResult !== false) {
+                    wp_send_json_success($singleResult);
                 } else {
                     wp_send_json_error(['message' => 'User does not exist']);
                 }
             } else {
-                wp_send_json_success($cached_data);
+                wp_send_json_success($cachedData);
             }
         }
     }
 
-    public function sortSingleUser($json, $id)
+    public function sortSingleUser($json, int $id)
     {
         foreach ($json as $value) {
-            if ($value->id == $id) {
+            if ($value->id === $id) {
                 return (array)$value;
             }
         }

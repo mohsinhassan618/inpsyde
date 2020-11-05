@@ -30,6 +30,7 @@
         "phpunit/phpunit": "^9.4"
     },
     "scripts": {
-        "tests": "phpunit"
+        "tests": "phpunit",
+        "codesniff": "phpcs"
     }
 }

@@ -1,24 +1,13 @@
-<?php
+<?php declare(strict_types=1); # -*- coding: utf-8 -*-
 
-// define test environment
-define( 'INPSYDE_PHPUNIT', true );
+// Including the constants for PHPUNIT
+require_once __DIR__ . './constants.php';
 
-
-// define fake ABSPATH
-if ( ! defined( 'ABSPATH' ) ) {
-    define( 'ABSPATH', sys_get_temp_dir() );
-}
-// define fake PLUGIN_ABSPATH
-if ( ! defined( 'PLUGIN_ABSPATH' ) ) {
-    define( 'PLUGIN_ABSPATH', sys_get_temp_dir() . '/wp-content/plugins/inpsyde-task-plugin' );
-}
-
+// Including the composer dependencies
 require_once __DIR__ . '/../../vendor/autoload.php';
-
 
 // Include the class for PluginTestCase
 require_once __DIR__ . '/inc/inpsydePluginTestCase.php';
 
-
+// Including the Main Plugin Class
 require_once __DIR__ . '/../../wp-content/plugins/inpsyde-task-plugin/InpsydeTaskPlugin.php';
-

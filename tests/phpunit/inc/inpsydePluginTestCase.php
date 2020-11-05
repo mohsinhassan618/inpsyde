@@ -1,20 +1,22 @@
-<?php
+<?php declare(strict_types=1); # -*- coding: utf-8 -*-
+
+
 use PHPUnit\Framework\TestCase;
 use Brain\Monkey;
-
-
 
 /**
  * An abstraction over WP_Mock to do things fast
  */
-class inpsydePluginTestCase extends TestCase {
+class inpsydePluginTestCase extends TestCase
+{
 
     /**
      * Setup which calls \WP_Mock setup
      *
      * @return void
      */
-    public function setUp(): void {
+    public function setUp(): void
+    {
         parent::setUp();
         Monkey\setUp();
         // A few common passthrough
@@ -33,7 +35,6 @@ class inpsydePluginTestCase extends TestCase {
                 'esc_attr_x',
             ]
         );
-
     }
 
     /**
@@ -41,7 +42,8 @@ class inpsydePluginTestCase extends TestCase {
      *
      * @return void
      */
-    public function tearDown() : void  {
+    public function tearDown() : void
+    {
         Monkey\tearDown();
         parent::tearDown();
     }

@@ -32,38 +32,38 @@ class InpsydePluginTest extends TestCase
             Filters\expectAdded('show_admin_bar')->with(\Mockery::type('Closure'));
 
         //Fire
-        $inpsydeTaskPlugin = InpsydeTaskPlugin::get_instance();
+        $inpsydeTaskPlugin = InpsydeTaskPlugin::instance();
         $inpsydeTaskPlugin->init();
 
         //Tests
         $this->assertNotFalse(
             has_action(
                 'rest_api_init',
-                [$inpsydeTaskPlugin, 'register_rest_route']
+                [$inpsydeTaskPlugin, 'registerRestRoute']
             )
         );
         $this->assertNotFalse(
             has_action(
                 'rest_api_init',
-                [$inpsydeTaskPlugin, 'register_rest_route']
+                [$inpsydeTaskPlugin, 'registerRestRoute']
             )
         );
         $this->assertNotFalse(
             has_action(
                 'wp_enqueue_scripts',
-                [$inpsydeTaskPlugin, 'enqueue_resources']
+                [$inpsydeTaskPlugin, 'enqueueResources']
             )
         );
         $this->assertNotFalse(
             has_filter(
                 'query_vars',
-                [$inpsydeTaskPlugin, 'inpsyde_add_query_var']
+                [$inpsydeTaskPlugin, 'inpsydeAddQueryVare']
             )
         );
         $this->assertNotFalse(
             has_filter(
                 'template_include',
-                [$inpsydeTaskPlugin, 'inpsyde_load_template']
+                [$inpsydeTaskPlugin, 'inpsydeLoadTemplate']
             )
         );
     }
@@ -77,10 +77,10 @@ class InpsydePluginTest extends TestCase
         ];
 
         //Fire and Test
-        $inpsydeTaskPlugin = InpsydeTaskPlugin::get_instance();
+        $inpsydeTaskPlugin = InpsydeTaskPlugin::instance();
         $this->assertEquals(
             $returnData,
-            $inpsydeTaskPlugin->inpsyde_add_query_var([])
+            $inpsydeTaskPlugin->inpsydeAddQueryVare([])
         );
     }
 
@@ -94,8 +94,8 @@ class InpsydePluginTest extends TestCase
         $this->expectOutputString(json_encode($data));
 
         //Fire
-        $inpsydeTaskPlugin = InpsydeTaskPlugin::get_instance();
-        $inpsydeTaskPlugin->get_cached_data();
+        $inpsydeTaskPlugin = InpsydeTaskPlugin::instance();
+        $inpsydeTaskPlugin->getCachedData();
     }
 
     public function testDataRetrievedFromCacheForSingleUser()
@@ -108,8 +108,8 @@ class InpsydePluginTest extends TestCase
         $this->expectOutputString(json_encode($data[4]));
 
         //Fire
-        $inpsydeTaskPlugin = InpsydeTaskPlugin::get_instance();
-        $inpsydeTaskPlugin->get_cached_data(5);
+        $inpsydeTaskPlugin = InpsydeTaskPlugin::instance();
+        $inpsydeTaskPlugin->getCachedData(5);
     }
 
     public function mockWpFunctionsUsedInRetrievingDataFromCache(array  $data)

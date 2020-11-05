@@ -10,6 +10,6 @@ License: GPLv2 or later
 require_once __DIR__ . './InpsydeTaskPlugin.php';
 
 if(! defined('INPSYDE_PHPUNIT')  ) {
-    $inpsydePluginObj =  \InpsydePlugins\InpsydeTaskPlugin::get_instance();
+    $inpsydePluginObj =  \InpsydePlugins\InpsydeTaskPlugin::instance();
     $inpsydePluginObj->init();
 }

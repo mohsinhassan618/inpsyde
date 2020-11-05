@@ -2,7 +2,7 @@
 
 namespace InpsydePHPUnit\TestCases;
 
-use \Plugin\inpsyde\InpsydeTaskPlugin;
+use InpsydePlugins\InpsydeTaskPlugin;
 use \Brain\Monkey\Functions;
 use \Brain\Monkey\Filters;
 use InpsydePHPUnit\Inc\InpsydePluginTestCase as TestCase;

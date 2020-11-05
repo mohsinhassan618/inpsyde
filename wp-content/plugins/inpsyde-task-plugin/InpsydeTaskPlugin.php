@@ -211,7 +211,7 @@ if(!class_exists('\Plugin\inpsyde\InpsydeTaskPlugin')){
 
             foreach ($json as $value){
                 if($value->id == $id){
-                    return $value;
+                    return (array) $value;
                 }
             }
             return false;

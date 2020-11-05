@@ -1,5 +1,6 @@
 <?php declare(strict_types=1); # -*- coding: utf-8 -*-
 
+namespace InpsydePHPUnit\Inc;
 
 use PHPUnit\Framework\TestCase;
 use Brain\Monkey;
@@ -7,7 +8,7 @@ use Brain\Monkey;
 /**
  * An abstraction over WP_Mock to do things fast
  */
-class inpsydePluginTestCase extends TestCase
+class InpsydePluginTestCase extends TestCase
 {
 
     /**

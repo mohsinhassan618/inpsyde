@@ -17,7 +17,7 @@ class InpsydeTaskPlugin
     private $apiUrl = 'https://jsonplaceholder.typicode.com/users';
     private $isInpsydeEndpoint = false;
     private $removeDefaultThemeStyle = true;
-    private $cacheApiResponse = true;
+    private $cacheApiResponse = false;
 
     /**
      * Constructor
@@ -122,38 +122,22 @@ class InpsydeTaskPlugin
         ]);
     }
 
-    public function inpsydeRestRouteCallbackUsers($data = null)
+    public function inpsydeRestRouteCallbackUsers(object $data = null)
     {
         $singleId = isset($data['id']) ? (int) $data['id'] : null;
         $responseCode = 0;
 
         $this->cacheApiResponse = apply_filters('inpsyde_cache_api_response', $this->cacheApiResponse);
         if ($this->cacheApiResponse) {
-            $this->getCachedData($singleId);
+            $this->cachedData($singleId);
         }
 
         try {
-            $usersData = false;
-            $response = wp_remote_get($this->apiUrl, ['timeout' => 20]);
-            $responseCode = wp_remote_retrieve_response_code($response);
-            if (!is_wp_error($response) && ((int) $responseCode === 200)) {
-                $body = wp_remote_retrieve_body($response);
-                $usersData = json_decode($body);
-                if ($this->cacheApiResponse) {
-                    set_transient('typicode_api_response', $usersData, 12 * HOUR_IN_SECONDS);
-                }
-
-                if ($singleId) {
-                    $singleResult = $this->sortSingleUser($usersData, (int) $singleId);
-                    ($singleResult !== false) ?
-                        wp_send_json_success($singleResult) :
-                        wp_send_json_error(['message' => 'User does not exist']);
-                } else {
-                    wp_send_json_success($usersData, 200);
-                }
-            }
+            $this->sendApiRequest($singleId);
         } catch (\Exception $exObj) {
-            wp_send_json_error(['message' => $exObj->getMessage()]);
+            wp_send_json_error(
+                ['message' => $exObj->getMessage()]
+            );
         }
 
         wp_send_json_error(
@@ -161,33 +145,69 @@ class InpsydeTaskPlugin
         );
     }
 
-    public function getCachedData(int $id = null)
+    public function sendApiRequest(int $singleId = null)
     {
-        $singleId = $id;
-        $cachedData = get_transient('typicode_api_response');
-
-        if (($cachedData !== false) && is_array($cachedData)) {
-            if ($singleId) {
-                $singleResult = $this->sortSingleUser($cachedData, $singleId);
-                if ($singleResult !== false) {
-                    wp_send_json_success($singleResult);
-                } else {
-                    wp_send_json_error(['message' => 'User does not exist']);
-                }
-            } else {
-                wp_send_json_success($cachedData);
+        $usersData = false;
+        $response = wp_remote_get($this->apiUrl, ['timeout' => 20]);
+        $responseCode = wp_remote_retrieve_response_code($response);
+        if (!is_wp_error($response) && ((int) $responseCode === 200)) {
+            $body = wp_remote_retrieve_body($response);
+            $usersData = json_decode($body);
+            if ($this->cacheApiResponse) {
+                set_transient('typicode_api_response', $usersData, 12 * HOUR_IN_SECONDS);
             }
+
+            $this->sendSingleOrAllResults($usersData, $singleId);
         }
     }
 
-    public function sortSingleUser($json, int $id)
+    public function cachedData(int $id = null)
+    {
+        $cachedData = get_transient('typicode_api_response');
+
+        if (($cachedData !== false) && is_array($cachedData)) {
+            $this->sendSingleOrAllResults($cachedData, $id);
+        }
+    }
+
+    
+    public function sendSingleOrAllResults(array $data, int $id = null)
+    {
+        if ($id !== null) {
+            $singleResult = $this->sortSingleUser($data, (int) $id);
+            $this->sendSingleResult($singleResult);
+            return;
+        }
+
+        $this->sendAllResults($data);
+    }
+
+    public function sendSingleResult(array $singleResult)
+    {
+        if (empty($singleResult)) {
+            wp_send_json_error(
+                ['message' => 'User does not exist']
+            );
+        }
+
+        wp_send_json_success($singleResult);
+    }
+
+    public function sendAllResults(array $allUsersData)
+    {
+        wp_send_json_success(
+            $allUsersData
+        );
+    }
+
+    public function sortSingleUser(array $json, int $id):array
     {
         foreach ($json as $value) {
             if ($value->id === $id) {
                 return (array)$value;
             }
         }
-        return false;
+        return [];
     }
 
     public function enqueueResources()

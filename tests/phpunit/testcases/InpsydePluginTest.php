@@ -95,7 +95,7 @@ class InpsydePluginTest extends TestCase
 
         //Fire
         $inpsydeTaskPlugin = InpsydeTaskPlugin::instance();
-        $inpsydeTaskPlugin->getCachedData();
+        $inpsydeTaskPlugin->cachedData();
     }
 
     public function testDataRetrievedFromCacheForSingleUser()
@@ -109,7 +109,7 @@ class InpsydePluginTest extends TestCase
 
         //Fire
         $inpsydeTaskPlugin = InpsydeTaskPlugin::instance();
-        $inpsydeTaskPlugin->getCachedData(5);
+        $inpsydeTaskPlugin->cachedData(5);
     }
 
     public function mockWpFunctionsUsedInRetrievingDataFromCache(array  $data)

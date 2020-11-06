@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1); # -*- coding: utf-8 -*-
 /*
 Plugin Name: Inpsyde Task Plugin
 Description:
@@ -9,7 +9,7 @@ License: GPLv2 or later
 
 require_once __DIR__ . './InpsydeTaskPlugin.php';
 
-if(! defined('INPSYDE_PHPUNIT')  ) {
+if (! defined('INPSYDE_PHPUNIT')) {
     $inpsydePluginObj =  \InpsydePlugins\InpsydeTaskPlugin::instance();
     $inpsydePluginObj->init();
 }

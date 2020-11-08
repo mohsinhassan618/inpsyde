@@ -163,8 +163,18 @@ class InpsydeTaskPlugin
      */
     public function inpsydeActivationSetup()
     {
+        $this->updatePermalinkStructure();
         $this->inpsydeAddEndPoint();
         flush_rewrite_rules();
+    }
+
+    /**
+     * Update the permalink structure
+     */
+    public function updatePermalinkStructure(){
+        if(get_option('permalink_structure') !== '/%postname%/'){
+            update_option('permalink_structure','/%postname%/');
+        }
     }
 
     /**

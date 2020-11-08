@@ -90,7 +90,7 @@ class InpsydeTaskPlugin
         $this->pluginSlug = 'inpsyde-task-plugin';
         $this->pluginTextDomain = 'inpsyde-task-plugin';
 
-        register_activation_hook(__FILE__, [$this, 'inpsydeActivationSetup']);
+        register_activation_hook(__DIR__.'/index.php', [$this, 'inpsydeActivationSetup']);
 
         add_action('init', [$this, 'inpsydeAddEndPoint']);
         add_action('rest_api_init', [$this, 'registerRestRoute']);
@@ -98,10 +98,10 @@ class InpsydeTaskPlugin
 
         add_filter('query_vars', [$this, 'inpsydeAddQueryVare']);
         add_filter('template_include', [$this, 'inpsydeLoadTemplate'], -1);
+        add_filter('wp_list_pages', [$this, 'addInpsydeLink'], 10, 3);
         add_filter('show_admin_bar', function () {
             return false;
         });
-        add_filter('wp_list_pages', [$this, 'addInpsydeLink'], 10, 3);
     }
 
     /**
@@ -171,9 +171,10 @@ class InpsydeTaskPlugin
     /**
      * Update the permalink structure
      */
-    public function updatePermalinkStructure(){
-        if(get_option('permalink_structure') !== '/%postname%/'){
-            update_option('permalink_structure','/%postname%/');
+    public function updatePermalinkStructure()
+    {
+        if (get_option('permalink_structure') !== '/%postname%/') {
+            update_option('permalink_structure', '/%postname%/');
         }
     }
 

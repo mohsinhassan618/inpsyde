@@ -10,6 +10,9 @@ use InpsydePHPUnit\Inc\InpsydePluginTestCase as TestCase;
 class InpsydePluginTest extends TestCase
 {
 
+    /**
+     * Test the plugin hooks init function
+     */
     public function testInitHooks()
     {
         //Setup
@@ -68,6 +71,9 @@ class InpsydePluginTest extends TestCase
         );
     }
 
+    /**
+     * Test the Query Args for endpoint is added successfully
+     */
     public function testQueryArgsAdded()
     {
         //Setup
@@ -84,6 +90,9 @@ class InpsydePluginTest extends TestCase
         );
     }
 
+    /**
+     * Test to retrieved the data from cache all users
+     */
     public function testDataRetrievedFromCacheForAllUsers()
     {
         // Setup - prepare data and mock functions
@@ -98,6 +107,9 @@ class InpsydePluginTest extends TestCase
         $inpsydeTaskPlugin->cachedData();
     }
 
+    /**
+     * Test to retrieved the data from cache single users
+     */
     public function testDataRetrievedFromCacheForSingleUser()
     {
         // Setup - prepare data and mock functions
@@ -112,6 +124,10 @@ class InpsydePluginTest extends TestCase
         $inpsydeTaskPlugin->cachedData(5);
     }
 
+    /**
+     * Mock WP function used to get users data from cache
+     * @param array $data
+     */
     public function mockWpFunctionsUsedInRetrievingDataFromCache(array  $data)
     {
         // We expect get_transient to be called and return Data Stored from API
@@ -137,6 +153,10 @@ class InpsydePluginTest extends TestCase
             });
     }
 
+    /**
+     * Used to mock the get_transient function
+     * @return array
+     */
     public function prepareUsersDataSupposedToReceiveFromCache(): array
     {
         $data = file_get_contents(__DIR__ .'/users_data.json');

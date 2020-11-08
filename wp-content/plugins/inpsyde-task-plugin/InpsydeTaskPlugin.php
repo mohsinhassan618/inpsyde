@@ -10,14 +10,54 @@ class InpsydeTaskPlugin
      * @var singleton object
      */
     private static $pluginInstance;
+
+    /**
+     * Plugin root URL
+     * @var string
+     */
     private $pluginUri;
+
+    /**
+     * Plugin root directory
+     * @var string
+     */
     private $pluginDir;
+
+    /**
+     * Plugin
+     * @var string
+     */
     private $pluginSlug;
+
+    /**
+     * Plugin text domain
+     * @var string
+     */
     private $pluginTextDomain;
+
+    /**
+     * Api Url
+     * @var string
+     */
     private $apiUrl = 'https://jsonplaceholder.typicode.com/users';
+
+    /**
+     * Flag to indicate the end point
+     * @var bool
+     */
     private $isInpsydeEndpoint = false;
+
+    /**
+     * Flag to remove the default theme style
+     * @var bool
+     */
     private $removeDefaultThemeStyle = true;
-    private $cacheApiResponse = false;
+
+    /**
+     * Flag to store the Api response
+     * @var bool
+     */
+    private $cacheApiResponse = true;
 
     /**
      * Constructor
@@ -39,6 +79,9 @@ class InpsydeTaskPlugin
         return self::$pluginInstance;
     }
 
+    /**
+     * initialize all the hooks
+     */
     public function init()
     {
         //
@@ -58,8 +101,14 @@ class InpsydeTaskPlugin
         add_filter('show_admin_bar', function () {
             return false;
         });
+        add_filter('wp_list_pages', [$this, 'addInpsydeLink'], 10, 3);
     }
 
+    /**
+     * Add Query Vars for Inpsyde endpoints
+     * @param array $vars
+     * @return array
+     */
     public function inpsydeAddQueryVare(array $vars):array
     {
         $vars[] = 'inpsyde';
@@ -67,6 +116,11 @@ class InpsydeTaskPlugin
         return $vars;
     }
 
+    /**
+     * Call to Remove the default Theme style and load the Inpsyde template
+     * @param string $template
+     * @return string
+     */
     public function inpsydeLoadTemplate(string $template):string
     {
         $this->isInpsydeEndpoint = get_query_var('inpsyde');
@@ -79,6 +133,9 @@ class InpsydeTaskPlugin
         return $template;
     }
 
+    /**
+     * remove the default theme styles
+     */
     public function removeTwentyTwentyStyles()
     {
         if (($this->removeDefaultThemeStyle === true) &&
@@ -89,12 +146,30 @@ class InpsydeTaskPlugin
         }
     }
 
+    /**
+     * Add the link to Inpsyde endpoint link default theme navigation
+     * @param string $output
+     * @return string
+     */
+    public function addInpsydeLink(string $output):string
+    {
+        $inpsydeLink = home_url() . '/inpsyde';
+        $html = "<li class='page_item page-item-2'><a href='$inpsydeLink'>Inpsyde Task</a></li>";
+        return $output . $html;
+    }
+
+    /**
+     * Add the endpoints and rewrite rules
+     */
     public function inpsydeActivationSetup()
     {
         $this->inpsydeAddEndPoint();
         flush_rewrite_rules();
     }
 
+    /**
+     * add the inpsyde endpoints
+     */
     public function inpsydeAddEndPoint()
     {
         add_rewrite_rule(
@@ -109,6 +184,9 @@ class InpsydeTaskPlugin
         );
     }
 
+    /**
+     * Register the rest routes for users retrieved from APi
+     */
     public function registerRestRoute()
     {
         register_rest_route('inpsyde/v1', '/users', [
@@ -122,12 +200,22 @@ class InpsydeTaskPlugin
         ]);
     }
 
+    /**
+     * Call back function for rest routes for all users and single users
+     * @param object|null $data
+     */
+
     public function inpsydeRestRouteCallbackUsers(object $data = null)
     {
         $singleId = isset($data['id']) ? (int) $data['id'] : null;
         $responseCode = 0;
 
+        /**
+         * Filters flag to cache Api response
+         * @param bool $this->cacheApiResponse
+         */
         $this->cacheApiResponse = apply_filters('inpsyde_cache_api_response', $this->cacheApiResponse);
+
         if ($this->cacheApiResponse) {
             $this->cachedData($singleId);
         }
@@ -145,6 +233,10 @@ class InpsydeTaskPlugin
         );
     }
 
+    /**
+     * Send the request to external API to get the users data
+     * @param int|null $singleId
+     */
     public function sendApiRequest(int $singleId = null)
     {
         $usersData = false;
@@ -161,6 +253,10 @@ class InpsydeTaskPlugin
         }
     }
 
+    /**
+     * Used to get the cached users data
+     * @param int|null $id
+     */
     public function cachedData(int $id = null)
     {
         $cachedData = get_transient('typicode_api_response');
@@ -170,7 +266,11 @@ class InpsydeTaskPlugin
         }
     }
 
-    
+    /**
+     * used to get the data for single users or all users
+     * @param array $data
+     * @param int|null $id
+     */
     public function sendSingleOrAllResults(array $data, int $id = null)
     {
         if ($id !== null) {
@@ -182,6 +282,10 @@ class InpsydeTaskPlugin
         $this->sendAllResults($data);
     }
 
+    /**
+     * Send the response for single user via rest route
+     * @param array $singleResult
+     */
     public function sendSingleResult(array $singleResult)
     {
         if (empty($singleResult)) {
@@ -193,6 +297,10 @@ class InpsydeTaskPlugin
         wp_send_json_success($singleResult);
     }
 
+    /**
+     * Send the response for all users via rest route
+     * @param array $allUsersData
+     */
     public function sendAllResults(array $allUsersData)
     {
         wp_send_json_success(
@@ -200,6 +308,12 @@ class InpsydeTaskPlugin
         );
     }
 
+    /**
+     * used to sort the single user out of Json data received from API
+     * @param array $json
+     * @param int $id
+     * @return array
+     */
     public function sortSingleUser(array $json, int $id):array
     {
         foreach ($json as $value) {
@@ -210,6 +324,9 @@ class InpsydeTaskPlugin
         return [];
     }
 
+    /**
+     * enqueue the resources
+     */
     public function enqueueResources()
     {
         if ($this->isInpsydeEndpoint) {

@@ -9,7 +9,6 @@
     "require": {
         "php": ">=7.0",
         "johnpbloch/wordpress": "5.3.*",
-        "wpackagist-plugin/akismet":"*",
         "wpackagist-theme/twentytwenty":"*"
 
     },

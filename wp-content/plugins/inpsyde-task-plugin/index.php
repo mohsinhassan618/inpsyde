@@ -1,7 +1,7 @@
 <?php declare(strict_types=1); # -*- coding: utf-8 -*-
 /*
 Plugin Name: Inpsyde Task Plugin
-Description:
+Description: Inpsyde Task for WordPress developer.
 Version: 1.0
 Author: Mohsin Hassan
 License: GPLv2 or later

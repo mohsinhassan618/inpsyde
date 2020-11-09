@@ -7,14 +7,14 @@
 ## Inpsyde Task Setup/Configuration
 
 
-####Virtual Host Setup
+#### Virtual Host Setup
 
 
 Create a virtual host locally and point the domain to the repository root where composer.json is located.
  
 
 
-####Update Config.php File
+#### Update Config.php File
 
 
 Update the Database and domain details. The domain variable in file should be updated to the current domain
@@ -25,7 +25,7 @@ Update the Database and domain details. The domain variable in file should be up
   
 
 
-####Install the Project Dependencies 
+#### Install the Project Dependencies 
 
 
 Run the following command to install the project dependencies at project root where composer.json is located.
@@ -36,7 +36,7 @@ composer install
 
 
 
-####Plugin Activation
+#### Plugin Activation
 
 
 Login to the WordPress Admin and Activate the plugin `Inpsyde Task Plugin`

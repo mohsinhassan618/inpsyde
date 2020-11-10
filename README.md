@@ -97,11 +97,11 @@ Following are the features
 
 ### UnitTests and Coding standards
 UnitTesting is done with Brain Monkey and our main Class is `InpsydePluginTest`. I have covered the limited part of the code mainly the cached API response part.
-All the Tests are located inside tests directory and tests can be run from the command mentioned [above.](#coding-standards)
+All the Tests are located inside tests directory and tests can be run from the command mentioned [above.](#unit-tests)
 
 
 **InpsydeCoding Standards**  
-Coding standards are completely followed. Please use the command above to run the Check.  
+Coding standards are completely followed. Please use the command [above.](#coding-standards) to run the Check.  
 
 
 ### FeedBack

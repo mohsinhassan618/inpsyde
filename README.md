@@ -62,7 +62,7 @@ So the plugin can be divided into three parts Back-End, Front-End and UnitTestin
 
 
 #### Back-End Part `(InpsydeTaskPlugin.php)`
-The Plugin is implemented in a singleton class with Front-end in VueJS. The Plugin creates the Endpoint ``Inpsyde`` and load a new template for this endpoint located in the plugin directory.
+The Plugin is implemented in a singleton class with Front-end in VueJS. The Plugin creates the Endpoint ``Inpsyde`` and ``Inpsyde/userId``   also load a new template for this endpoint located in the plugin directory.
 The template is a complete Single Page VueJS application with its own routing system/rules that will get the data from WordPress Rest EndPoints
 created by this plugin. The plugin also use transient to store data received from API. Rest Endpoints can give the single user result or all users.
 
@@ -76,6 +76,7 @@ Following are the Rest EndPoints EndPoints
 
 ### Front-End Part
 The Front-End Part is implemented in VueJS and common BootStrap 4 template that will be loaded on custom endpoint ``Inpsyde``.
+The Vue Application only sends one request to the WordPress Rest Endpoint `/wp-json/inpsyde/v1/users` in whole life cycle and receive all the users data.
 We are using WebPack (JavaScript Module Bundler) to make the code compatible with browser that don't support ECMAScript 6 
 and compile our front-end resources. There is no need to run any node command everything is already compiled.
 

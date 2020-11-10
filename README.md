@@ -12,7 +12,7 @@ Create a virtual host locally and point the domain to the repository root where 
  
 
 
-#### Update Config.php File
+#### Update wp-config.php File
 Update the Database and domain details. The domain variable in file should be updated to the current domain
 
 ```

@@ -58,7 +58,7 @@ Composer run tests
 ## Project Overview
 The project install WordPress as the Part of composer dependency along with PHPUnit, Brain Monkey and Inpsyde Coding Standers.
 The task is to send an API request to an external Server, get data from the server and then show the data in a custom WordPress EndPoint. 
-So the plugin can be divided into three parts Back-End, Front-End and UnitTesting/Coding 
+So the plugin can be divided into three parts Back-End, Front-End and UnitTesting/Coding Standard's  
 
 
 #### Back-End Part `(InpsydeTaskPlugin.php)`

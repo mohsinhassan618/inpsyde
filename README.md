@@ -91,7 +91,7 @@ Following are the features
 
 
 ### UnitTests and Coding standards
-UnitTesting is done with Brain Monkey and our main Class is `InpsydePluginTest`. I have covered limited part of the code mainly the cached API response part.
+UnitTesting is done with Brain Monkey and our main Class is `InpsydePluginTest`. I have covered the limited part of the code mainly the cached API response part.
 All the Tests are located inside tests directory and tests can be run from the command mentioned above. 
 
 

@@ -62,7 +62,7 @@ So the plugin can be divided into three parts Back-End, Front-End and UnitTestin
 
 
 #### Back-End Part `(InpsydeTaskPlugin.php)`
-The Plugin is implemented in a singleton class with Front-end in VueJS. The Plugin creates the Endpoint ``Inpsyde`` and ``Inpsyde/userId``   also load a new template for this endpoint located in the plugin directory.
+The Plugin is implemented in a singleton class with Front-end in VueJS. The Plugin creates the Endpoint ``Inpsyde`` and ``Inpsyde/userId``   also load a new template for these endpoints located in the plugin directory.
 The template is a complete Single Page VueJS application with its own routing system/rules that will get the data from WordPress Rest EndPoints
 created by this plugin. The plugin also use transient to store data received from API. Rest Endpoints can give the single user result or all users.
 

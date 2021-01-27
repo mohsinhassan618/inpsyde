@@ -104,8 +104,3 @@ All the Tests are located inside tests directory and tests can be run from the c
 Coding standards are completely followed. Please use the command [above.](#coding-standards) to run the Check.  
 
 
-### FeedBack
-It's a very wonderful journey I am not the same developer as I used to be after completing the Task.
-I like the way Inpsyde developers works. UnitTests and Coding Standards I have learned a lot from this task though  
-there are some times when I completely lose my motivation to do this task but in the end, it is a good investment in my skills
- 
